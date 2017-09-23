@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<div id="content">
+    <header>
+        <h2>[FRESH]</h2>
+        <span id="refresh" class="icon" title="See current posts">reset</span>
+        <span id="close" class="icon" title="Wait for new posts">next</span>
+    </header>
+    <div id="loader">
+        <svg class="circular" height="25" width="25">
+            <circle class="path" cx="25" cy="25.2" r="10.9" fill="none" stroke-width="3"
+                    stroke-miterlimit="10"></circle>
+        </svg>
+    </div>
+    <section></section>
+</div>
+
+<script src="popup.js"></script>
+
+<style>
+    body {
+        font-family: 'Helvetica', sans-serif;
+        font-size: 13px;
+        line-height: 1.58;
+        margin: 0;
+    }
+
+    header { padding: 0 8px; }
+
+    header h2 { display: inline-block; }
+
+    .icon {
+        color: #959794;
+        position: absolute;
+        font-size: 14px;
+        top: 20px;
+    }
+
+    .icon:hover {
+        color: black;
+        cursor: pointer;
+    }
+
+    a {
+        color: black;
+        text-overflow: ellipsis;
+    }
+
+    #close { right: 6px; }
+
+    #refresh { right: 40px; }
+
+    .not-found { padding-left: 10px; }
+
+    article {
+        position: relative;
+        padding: 10px 10px 0 10px;
+        height: 70px;
+        border-top: 1px solid #959794;
+        border-bottom: 1px solid #959794;
+        margin-bottom: 10px;
+    }
+
+    #content {
+        width: 300px;
+    }
+
+    section {
+        margin-bottom: 10px;
+    }
+
+    .circular {
+        position: absolute;
+        top: 10%;
+        left: 30%;
+        width: 50px;
+        height: 50px;
+        -webkit-animation: rotate 2s linear infinite;
+        animation: rotate 2s linear infinite;
+    }
+
+    @-webkit-keyframes rotate {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .path {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+        -webkit-animation: dash 1.5s ease-in-out infinite,
+        color 6s ease-in-out infinite;
+        animation: dash 1.5s ease-in-out infinite,
+        color 6s ease-in-out infinite;
+        stroke-linecap: round;
+        stroke: rgb(30, 30, 30);
+    }
+
+    @-webkit-keyframes dash {
+        0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -124;
+        }
+    }
+
+    @keyframes dash {
+        0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -124;
+        }
+    }
+</style>
