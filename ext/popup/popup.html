@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<div class="content">
+    <header>
+        <h2>[FRESH] HHH</h2>
+        <div class="header__icons">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 id="js-fetch" class="feather feather-refresh-cw" color="#384047">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+        </div>
+    </header>
+
+    <section class="results"></section>
+
+    <div id="js-loader" class="loader">
+        <svg class="circular" height="25" width="25">
+            <circle class="path" cx="25" cy="25.2" r="10.9" fill="none" stroke-width="3"
+                    stroke-miterlimit="10"></circle>
+        </svg>
+    </div>
+
+    <h3 class="matches__title">Matching On</h3>
+
+    <div class="matches"></div>
+
+    <div class="footer__icons">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             id="js-add-input" class="feather feather-plus-square" color="#384047">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             id="js-remove-input" class="feather feather-minus-square" color="#384047">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             id="js-save" class="feather feather-save" color="#384047">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+        </svg>
+    </div>
+</div>
+
+<script src="popup.js"></script>
+
+<style>
+    :root {
+        --color-main: #1B1E25;
+        --color-tint: #F0F1F1;
+        --color-active: #D04736;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background-color: var(--color-main);
+        color: var(--color-tint);
+        font-family: 'Helvetica', sans-serif;
+        font-size: 13px;
+    }
+
+    .content {
+        width: 400px;
+        padding: 20px;
+    }
+
+    h1, h2, h3, h4, h5, h6 { margin: 0; }
+
+    header {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header__icons {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .feather {
+        padding: 2px;
+        stroke: var(--color-tint);
+        cursor: pointer;
+    }
+
+    .feather:hover {
+        stroke: var(--color-active);
+    }
+
+    .feather:active,
+    .feather.active {
+        padding: 0;
+    }
+
+    .results {
+        margin-bottom: 30px;
+    }
+
+    .results__post {
+        margin-bottom: 8px;
+        padding: 20px;
+        height: 70px;
+        color: var(--color-tint);
+        font-weight: bold;
+        border: 0;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        box-shadow: inset 0 0 0 2px var(--color-tint);
+    }
+
+    .results__post:hover {
+        color: var(--color-active);
+        box-shadow: inset 0 0 0 3px var(--color-active);
+        transition: box-shadow 420ms cubic-bezier(.165, .85, .45, 1);
+    }
+
+    .matches {
+        width: 100%;
+        margin-bottom: 10px;
+        display: grid;
+        grid-gap: 4px;
+        grid-column-gap: 8px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .matches__title {
+        margin-bottom: 10px;
+    }
+
+    .matches input {
+        width: 100%;
+        margin-bottom: 4px;
+        padding: 8px;
+        display: block;
+        color: var(--color-tint);
+        background-color: var(--color-main);
+        font-size: 12px;
+        font-weight: bold;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: inset 0 0 0 2px var(--color-tint);
+    }
+
+    .matches input:focus {
+        color: var(--color-active);
+        outline: 0;
+        box-shadow: inset 0 0 0 2px var(--color-active);
+        transition: box-shadow 420ms cubic-bezier(.165, .85, .45, 1);
+    }
+
+    .matches input::placeholder {
+        color: var(--color-tint);
+        font-weight: normal;
+    }
+
+    .matches input:focus::placeholder { color: var(--color-active); }
+
+    .footer__icons {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .footer__icons .feather {
+        margin-left: 10px;
+    }
+
+    /* Loader */
+    .loader {
+        margin-bottom: 20px;
+    }
+
+    .circular {
+        width: 50px;
+        height: 50px;
+        -webkit-animation: rotate 2s linear infinite;
+        animation: rotate 2s linear infinite;
+    }
+
+    @-webkit-keyframes rotate {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .path {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+        -webkit-animation: dash 1.5s ease-in-out infinite,
+        color 6s ease-in-out infinite;
+        animation: dash 1.5s ease-in-out infinite,
+        color 6s ease-in-out infinite;
+        stroke-linecap: round;
+        stroke: var(--color-tint);
+    }
+
+    @-webkit-keyframes dash {
+        0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -124;
+        }
+    }
+
+    @keyframes dash {
+        0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -124;
+        }
+    }
+</style>
